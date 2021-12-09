@@ -1,16 +1,9 @@
 pipeline {
-    agent {
-        dockerfile true
-    }
-    stages ('Cloning Git') {
-       steps {
-           git 'https://github.com/StanislavRud/vue-ts-realword-app-test.git' 
-       }
-    }
+    agent { dockerfile true }
 
-    stages ('Build image') {
+    stages ('Test') {
         steps {
-            docker build .
+            sh 'node --version'
         }
     }
 }
