@@ -2,10 +2,15 @@ pipeline {
     agent {
         dockerfile true
     }
-    stages {
-        stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    stages ('Cloning Git') {
+       steps {
+           git 'https://github.com/StanislavRud/vue-ts-realword-app-test.git' 
+       }
+    }
+
+    stages ('Build image') {
+        steps {
+            docker build .
         }
     }
 }
