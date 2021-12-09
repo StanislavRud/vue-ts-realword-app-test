@@ -3,10 +3,9 @@ pipeline {
         dockerfile true
     }
     stages {
-        stage('Example') {
-            steps {
-                echo 'Ok'
-            }
+        stage('Initialize'){
+        def dockerHome = tool 'myDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
         }
     }
 }
