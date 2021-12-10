@@ -30,7 +30,7 @@ pipeline {
                 //     myapp = docker.build("stanislav/frontend:${env.BUILD_ID}")
                 // }
                 
-                sh "docker build -t stanislav/frontend:v4 ."
+                sh "docker build -t rudstanislav/realworldapp:v4 ."
             }
         }
 
