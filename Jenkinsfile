@@ -30,15 +30,21 @@ pipeline {
                 //     myapp = docker.build("stanislav/frontend:${env.BUILD_ID}")
                 // }
                 
-                sh "docker build -t stanislav/frontend:latest ."
+                sh "docker build -t stanislav/frontend:v4 ."
             }
         }
 
-        // stage('Push image') {
-        //     steps {
+        stage('Push image to DockerHub') {
+            steps {
+                withDockerRegistry(credentialsId: 'dockerhub-cred-rudstanislav', url: 'https://index.docker.io/v1/') {
+                    
+                    sh '''
+                        docker push rudstanislav/realworldapp:v4
+                     '''
 
-        //     }
-        // }
+                }
+            }
+        }
 
     }
 }
