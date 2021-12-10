@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build image') {
             steps {
-                docker build -t frontend:latest .
+                docker build -t frontend .
             }
         }
     }
