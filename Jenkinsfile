@@ -2,6 +2,15 @@ pipeline {
     agent  any 
 
     stages {
+        
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+
+
         stage('Checkout repository') {
             steps{
                 git branch:'main',
