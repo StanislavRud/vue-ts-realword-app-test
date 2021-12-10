@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Checkout repository') {
             steps{
-                git branch:'main'
-                    url:'https://github.com/StanislavRud/vue-ts-realword-app-test.git'
+                git branch:'main',
+                    url: 'https://github.com/StanislavRud/vue-ts-realword-app-test.git'
                 }
         }
 
