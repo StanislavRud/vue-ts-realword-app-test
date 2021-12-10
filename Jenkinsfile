@@ -18,11 +18,11 @@ pipeline {
                 }
         }
 
-        stage('Test') {
-            steps {
-                sh "ls -la"
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh "ls -la"
+        //     }
+        // }
         
         stage('Build image') {
             steps {
@@ -43,6 +43,12 @@ pipeline {
                      '''
 
                 }
+            }
+        }
+
+        stage('Delete docker image localy') {
+            steps {
+                sh 'docker rmi rudstanislav/realworldapp:v4 node'
             }
         }
 
