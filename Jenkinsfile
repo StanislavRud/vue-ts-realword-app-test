@@ -48,7 +48,7 @@ pipeline {
 
         stage('Delete docker image localy') {
             steps {
-                sh 'docker rmi rudstanislav/realworldapp:v4 node'
+                sh 'docker rmi rudstanislav/realworldapp:v4 node:12'
             }
         }
 
