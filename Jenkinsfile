@@ -142,10 +142,6 @@ pipeline {
             
 
         }
-     
-        //Testing webhooks
-        //Testing webhooks
-        //Testing webhooks
 
         stage('Build image') {
             steps {
