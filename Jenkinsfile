@@ -149,7 +149,7 @@ pipeline {
         stage('Build image') {
             steps {
                 
-                sh "docker build -t rudstanislav/realworldapp:v4 ."
+                sh "docker build -t rudstanislav/realworldapp:${BUILD_NUMBER} ."
             }
         }
 
@@ -159,7 +159,7 @@ pipeline {
                     
                     sh '''
                         printenv
-                        docker push rudstanislav/realworldapp:v4
+                        docker push rudstanislav/realworldapp:${BUILD_NUMBER}
 
                      '''
 
@@ -169,7 +169,7 @@ pipeline {
 
         stage('Delete docker image localy') {
             steps {
-                sh 'docker rmi rudstanislav/realworldapp:v4 node:12'
+                sh 'docker rmi rudstanislav/realworldapp:${BUILD_NUMBER} node:12'
             }
         }
 
