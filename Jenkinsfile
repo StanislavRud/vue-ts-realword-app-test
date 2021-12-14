@@ -67,7 +67,6 @@ pipeline {
                     echo Selected Tag name: $TAG
                     echo Selected Branch and Tag name: $BRANCH_and_TAG
                     echo Selected Revision name: $REVISION
-                    printenv
                 '''
             }
         }
@@ -159,7 +158,9 @@ pipeline {
                 withDockerRegistry(credentialsId: 'dockerhub-cred-rudstanislav', url: 'https://index.docker.io/v1/') {
                     
                     sh '''
+                        printenv
                         docker push rudstanislav/realworldapp:v4
+
                      '''
 
                 }
