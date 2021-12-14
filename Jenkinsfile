@@ -145,9 +145,6 @@ pipeline {
      
         stage('Build image') {
             steps {
-                // scripts {
-                //     myapp = docker.build("stanislav/frontend:${env.BUILD_ID}")
-                // }
                 
                 sh "docker build -t rudstanislav/realworldapp:v4 ."
             }
