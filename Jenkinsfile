@@ -67,6 +67,7 @@ pipeline {
                     echo Selected Tag name: $TAG
                     echo Selected Branch and Tag name: $BRANCH_and_TAG
                     echo Selected Revision name: $REVISION
+                    printenv
                 '''
             }
         }
