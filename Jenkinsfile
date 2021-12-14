@@ -59,14 +59,6 @@ pipeline {
             }
         }
 
-
-        // stage('Checkout repository') {
-        //     steps{
-        //         git branch:'main',
-        //             url: 'https://github.com/StanislavRud/vue-ts-realword-app-test.git'
-        //         }
-        // }
-
         stage('Print Enviroment') {
             steps {
                 sh '''
@@ -146,20 +138,6 @@ pipeline {
                         }
                 }
 
-
-                // stage('BRANCH') {
-                //     when {
-                //         expression { params.TYPE == 'BRANCH'}
-                //     }
-                //     steps {
-                //         checkout(
-                //             [$clas
-
-                //             ]
-                //         )
-                //         git branch: "${params.BRANCH}", credentialsId: 'github-rudstanislav-cred', url: 'git@github.com:StanislavRud/vue-ts-realword-app-test.git'
-                //         }
-                // }
             }
             
 
