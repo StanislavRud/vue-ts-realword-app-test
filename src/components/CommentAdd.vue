@@ -49,14 +49,7 @@ export default class CommentAdd extends Vue {
   isLoading = false;
 
   get userImage(): string | null | undefined {
-
-    if (User.currentUser.image) {
-      return User.currentUser.image
-    } else {
-      return "https://freesvg.org/img/abstract-user-flat-1.png"
-    }
-
-    // return User.currentUser?.image;
+    return User.currentUser?.image;
   }
 
   get isLoggedIn(): boolean {
