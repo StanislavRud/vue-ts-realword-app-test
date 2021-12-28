@@ -48,8 +48,15 @@ export default class CommentAdd extends Vue {
   errors: string[] = [];
   isLoading = false;
 
-  get userImage(): string | null | 'https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png' {
-    return User.currentUser?.image;
+  get userImage(): string | null | undefined {
+
+    if (User.currentUser.image) {
+      return User.currentUser.image
+    } else {
+      return "https://freesvg.org/img/abstract-user-flat-1.png"
+    }
+
+    // return User.currentUser?.image;
   }
 
   get isLoggedIn(): boolean {
