@@ -48,7 +48,7 @@ export default class CommentAdd extends Vue {
   errors: string[] = [];
   isLoading = false;
 
-  get userImage(): string | null | undefined {
+  get userImage(): string | null | 'https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png' {
     return User.currentUser?.image;
   }
 
