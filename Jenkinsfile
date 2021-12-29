@@ -1,3 +1,4 @@
+// def BUILD_NUMBER
 pipeline {
     agent  any 
 
@@ -137,19 +138,19 @@ pipeline {
                             ) 
                         }
                 }
-
             }
-            
-
         }
-
-        //testing webhooks
-
 
         stage('Build image') {
             steps {
-                
-                sh "docker build -t rudstanislav/realworldapp:${BUILD_NUMBER} ."
+                // script{
+                //     BUILD_NUMBER = 123
+                // }
+                // sh "echo ${BUILD_NUMBER}"
+                // sh "echo \${BUILD_NUMBER}"
+                sh 'echo ${BUILD_NUMBER}'
+                sh "docker build -t rudstanislav/realworldapp:v${BUILD_NUMBER} ."
+                // sh "docker tag rudstanislav/realworldapp:v${BUILD_NUMBER} rudstanislav/realworldapp:latest"
             }
         }
 
@@ -157,21 +158,58 @@ pipeline {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub-cred-rudstanislav', url: 'https://index.docker.io/v1/') {
                     
+                    // printenv
                     sh '''
-                        printenv
-                        docker push rudstanislav/realworldapp:${BUILD_NUMBER}
+                        docker push rudstanislav/realworldapp:v${BUILD_NUMBER}
 
                      '''
 
                 }
             }
         }
-
-        stage('Delete docker image localy') {
+        
+        
+        stage('Helm install') {
             steps {
-                sh 'docker rmi rudstanislav/realworldapp:${BUILD_NUMBER} node:12'
+                    sh '''
+                    curl -LO https://get.helm.sh/helm-v3.5.2-linux-amd64.tar.gz
+                    tar -zxvf helm-v3.5.2-linux-amd64.tar.gz
+                    sudo mv linux-amd64/helm /usr/local/bin/helm3
+                '''
+            }
+        }
+        
+        stage('check auth to kubernetes') {
+            steps {
+                withKubeConfig([credentialsId: 'mykubeconfig']) {
+                    sh 'kubectl get pods'
+                }
+            }
+        }
+        
+        
+        stage('clone helm templates') {
+            steps {
+                sh ' git clone https://github.com/StanislavRud/my-k8s-helm.git '
+            }
+        }
+        
+        stage('helm upgrade') {
+            steps {
+                withKubeConfig(credentialsId: 'mykubeconfig', serverUrl: '') {
+                    
+                    sh '''
+                        cd my-k8s-helm
+                        helm upgrade --install app --set container.frontendImage=rudstanislav/realworldapp:v${BUILD_NUMBER} ./
+                    '''
+                }
             }
         }
 
+        stage('Delete docker image localy') {
+            steps {
+                sh '''docker rmi rudstanislav/realworldapp:v${BUILD_NUMBER} node:12'''
+            }
+        }
     }
 }
